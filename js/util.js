@@ -8,11 +8,11 @@ function getRandomArrayElement(elements) {
   return elements[getRandomNumber(0, elements.length - 1)];
 }
 
-function checkCommentLength(comment, maxLength) {
-  return comment.length <= maxLength;
-}
+//function checkCommentLength(comment, maxLength) {
+//  return comment.length <= maxLength;
+//}
 
-getRandomArrayElement();
-checkCommentLength();
+//getRandomArrayElement();
+//checkCommentLength();
 
 export { getRandomNumber, getRandomArrayElement };
