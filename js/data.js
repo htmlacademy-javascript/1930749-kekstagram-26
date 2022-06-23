@@ -11,7 +11,7 @@ const names = [
   'Вашингтон',
 ];
 
-const commentForPhoto = [
+const commentsForPhoto = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -20,15 +20,24 @@ const commentForPhoto = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const MIN_COMMENTS = 1;
+const MAX_COMMENTS = 3;
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
+const MIN_MESSAGE = 1;
+const MAX_MESSAGE = 2;
+
 let objectId = 1;
 let commentId = 1;
 
-const getCommentForPhoto = function() {
+const getCommentsForPhoto = function() {
   const id = commentId++;
   return {
     id,
-    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
-    message: Array.from({ length: getRandomNumber(1, 2) }, () => getRandomArrayElement(commentForPhoto) ).join(' '),
+    avatar: `img/avatar-${getRandomNumber(MIN_AVATAR, MAX_AVATAR)}.svg`,
+    message: Array.from({ length: getRandomNumber(MIN_MESSAGE, MAX_MESSAGE) }, () => getRandomArrayElement(commentsForPhoto) ).join(' '),
     name: getRandomArrayElement(names),
   };
 };
@@ -39,11 +48,11 @@ const createDescriptionPhoto = function() {
     id,
     url: `photos/${id}.jpg`,
     description: `Фото ${id}`,
-    likes: getRandomNumber(15, 200),
-    comments: Array.from({ length: getRandomNumber(1, 3) }, getCommentForPhoto),
+    likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
+    comments: Array.from({ length: getRandomNumber(MIN_COMMENTS, MAX_COMMENTS) }, getCommentsForPhoto),
   };
 };
 
-const listDescriptionPhoto = () => Array.from({ length: 25 }, createDescriptionPhoto);
+const listDescriptionPhoto = (count) => Array.from({ length: count }, createDescriptionPhoto);
 
 export { listDescriptionPhoto };
