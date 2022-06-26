@@ -6,14 +6,17 @@ const templatePicture = template.querySelector('.picture');
 const fragmentPicture = document.createDocumentFragment();
 
 const MAX_PHOTO = 25;
-const newPhoto = listDescriptionPhoto(MAX_PHOTO);
+const newPhotos = listDescriptionPhoto(MAX_PHOTO);
 
-newPhoto.forEach(({ url, likes, comments }) => {
+newPhotos.forEach(({id, url, likes, comments }) => {
   const photoElement = templatePicture.cloneNode(true);
   photoElement.querySelector('.picture__img').src = url;
   photoElement.querySelector('.picture__likes').textContent = likes;
   photoElement.querySelector('.picture__comments').textContent = comments.length;
+  photoElement.setAttribute('data-id', id);
   fragmentPicture.appendChild(photoElement);
 });
 
 pictures.appendChild(fragmentPicture);
+
+export { newPhotos };
