@@ -1,18 +1,13 @@
-function getRandomNumber(minNumber, maxNumber) {
+const getRandomNumber = (minNumber, maxNumber) => {
   const min = Math.ceil(Math.min(Math.abs(minNumber), Math.abs(maxNumber)));
-  const max = Math.floor(Math.max(Math.abs(minNumber),Math.abs(maxNumber)));
-  return Math.floor(Math.random()*(max - min + 1) + min);
-}
+  const max = Math.floor(Math.max(Math.abs(minNumber), Math.abs(maxNumber)));
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
-function getRandomArrayElement(elements) {
-  return elements[getRandomNumber(0, elements.length - 1)];
-}
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-//function checkCommentLength(comment, maxLength) {
-//  return comment.length <= maxLength;
-//}
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-//getRandomArrayElement();
-//checkCommentLength();
+const checkTextLength = (text, maxLength) => text.length <= maxLength;
 
-export { getRandomNumber, getRandomArrayElement };
+export { getRandomNumber, getRandomArrayElement, isEscapeKey, checkTextLength };

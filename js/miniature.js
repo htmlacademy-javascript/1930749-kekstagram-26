@@ -8,7 +8,7 @@ const fragmentPicture = document.createDocumentFragment();
 const MAX_PHOTO = 25;
 const newPhotos = listDescriptionPhoto(MAX_PHOTO);
 
-newPhotos.forEach(({id, url, likes, comments }) => {
+newPhotos.forEach(({ id, url, likes, comments }) => {
   const photoElement = templatePicture.cloneNode(true);
   photoElement.querySelector('.picture__img').src = url;
   photoElement.querySelector('.picture__likes').textContent = likes;
