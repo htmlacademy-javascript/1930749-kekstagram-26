@@ -29,10 +29,10 @@ const MAX_AVATAR = 6;
 const MIN_MESSAGE = 1;
 const MAX_MESSAGE = 2;
 
-let objectId = 1;
 let commentId = 1;
+let objectId = 1;
 
-const getCommentsForPhoto = function() {
+const getCommentsForPhoto = () => {
   const id = commentId++;
   return {
     id,
@@ -42,7 +42,7 @@ const getCommentsForPhoto = function() {
   };
 };
 
-const createDescriptionPhoto = function() {
+const createDescriptionPhoto = () => {
   const id = objectId++;
   return {
     id,

@@ -1,6 +1,7 @@
 import { newPhotos } from './miniature.js';
+import { isEscapeKey } from './util.js';
 
-const body = document.querySelector('body');
+export const body = document.querySelector('body');
 const pictures = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -13,20 +14,34 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
 const socialComment = socialComments.querySelector('.social__comment');
 
-bigPictureCancel.addEventListener('click', () =>{
+const onBigPictureKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeBigPicture();
+  }
+};
+
+function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+
+  document.removeEventListener('keydown', onBigPictureKeydown);
+}
+
+bigPictureCancel.addEventListener('click', () =>{
+  closeBigPicture();
 });
 
-document.addEventListener('keydown', (evt) =>{
-  if (evt.code === 'Escape') {
-    bigPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
-  }
-});
+function openBigPicture() {
+  bigPicture.classList.remove('hidden');
+  commentCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
+  body.classList.add('modal-open');
 
+  document.addEventListener('keydown', onBigPictureKeydown);
+}
 
-const getListComment = function (comments) {
+const getListComment =  (comments) =>{
   const fragmentComment = document.createDocumentFragment();
   socialComments.innerHTML = '';
   for (let i = 0; i < comments.length; i++){
@@ -41,10 +56,10 @@ const getListComment = function (comments) {
 pictures.forEach((picture) => {
   picture.addEventListener('click', (evt) => {
     evt.preventDefault();
+    openBigPicture();
     const pictureImg = picture.querySelector('img');
     const pictureLikes = picture.querySelector('.picture__likes');
     const pictureComments = picture.querySelector('.picture__comments');
-    bigPicture.classList.remove('hidden');
     bigPictureImg.src = pictureImg.src;
     likesCount.textContent = pictureLikes.textContent;
     commentsCount.textContent = pictureComments.textContent;
@@ -54,9 +69,5 @@ pictures.forEach((picture) => {
 
     const descriptionPhoto = newPhotos.find((photo) => String(photo.id) === picture.getAttribute('data-id')).description;
     captionPhoto.textContent = descriptionPhoto;
-
-    commentCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
-    body.classList.add('modal-open');
   });
 });
