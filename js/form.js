@@ -1,12 +1,13 @@
 import { body } from './bigpicture.js';
 import { isEscapeKey } from './util.js';
+import { scalingDown, scalingUp, resetStyleImg , addDefaultScaleImg , addEffectsSlider, removeEffectsSlider} from './effects.js';
+import { imgUploadForm, textHashtags, textDescription, validateFormUpload ,pristine} from './validation.js';
 
-export const imgUploadForm = document.querySelector('.img-upload__form');
 const uploadFileInput = imgUploadForm.querySelector('#upload-file');
 const imgUploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
 const uploadCancel = imgUploadForm.querySelector('#upload-cancel');
-export const textHashtags = imgUploadForm.querySelector('.text__hashtags');
-export const textDescription = imgUploadForm.querySelector('.text__description');
+const buttonSmallerScale = imgUploadForm.querySelector('.scale__control--smaller');
+const buttonBiggerScale = imgUploadForm.querySelector('.scale__control--bigger');
 
 const onImgUploadKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -16,20 +17,29 @@ const onImgUploadKeydown = (evt) => {
 };
 
 function closeImgUpload() {
-  imgUploadOverlay.classList.add('hidden');
-  uploadFileInput.value = '';
-  textHashtags.value = '';
-  textDescription.value = '';
+  imgUploadForm.reset();
+  pristine.reset();
+  resetStyleImg();
   body.classList.remove('modal-open');
+  removeEffectsSlider();
+  imgUploadOverlay.classList.add('hidden');
 
-  document.removeEventListener('keydown',  onImgUploadKeydown);
+  document.removeEventListener('keydown', onImgUploadKeydown);
+  buttonSmallerScale.removeEventListener('click', scalingDown);
+  buttonBiggerScale.removeEventListener('click', scalingUp);
+  imgUploadForm.removeEventListener('submit', validateFormUpload);
 }
 
 function openImgUpload() {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  addDefaultScaleImg();
+  addEffectsSlider();
 
-  document.addEventListener('keydown',  onImgUploadKeydown);
+  document.addEventListener('keydown', onImgUploadKeydown);
+  buttonSmallerScale.addEventListener('click', scalingDown);
+  buttonBiggerScale.addEventListener('click', scalingUp);
+  imgUploadForm.addEventListener('submit', validateFormUpload);
 }
 
 uploadFileInput.addEventListener('change', () => {

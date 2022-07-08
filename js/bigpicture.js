@@ -31,9 +31,7 @@ function closeBigPicture () {
   commentsLoaderButton.removeEventListener('click', checkHiddenComments);
 }
 
-bigPictureCancel.addEventListener('click', () =>{
-  closeBigPicture();
-});
+bigPictureCancel.addEventListener('click', () => closeBigPicture());
 
 function openBigPicture() {
   bigPicture.classList.remove('hidden');
