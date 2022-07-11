@@ -49,10 +49,4 @@ const checkCommentLength = (comment) => checkTextLength(comment, MAX_LENGTH_COMM
 
 pristine.addValidator(textDescription, checkCommentLength, `Длина комментария не может составлять больше ${MAX_LENGTH_COMMENT} символов`);
 
-
-const validateFormUpload = (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();}
-};
-
-export { imgUploadForm , textHashtags, textDescription, validateFormUpload, pristine};
+export { imgUploadForm , textHashtags, textDescription, pristine};

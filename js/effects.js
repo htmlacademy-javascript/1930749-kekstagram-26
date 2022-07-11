@@ -19,7 +19,7 @@ const addDefaultScaleImg = () => {
   imgUploadPreview.style.transform = `scale(${DEFAULT_SCALE / 100})`;
 };
 
-const scalingDown = () => {
+const onButtonSmallerScalesClick = () => {
   let countScale = parseInt(valueScale.value, 10);
   if (countScale > MIN_SCALE) {
     countScale -= STEP_SCALE;
@@ -28,7 +28,7 @@ const scalingDown = () => {
   }
 };
 
-const scalingUp = () => {
+const onButtonBiggerScalesClick = () => {
   let countScale = parseInt(valueScale.value, 10);
   if (countScale < MAX_SCALE) {
     countScale += STEP_SCALE;
@@ -74,7 +74,7 @@ const onSliderChangeStyle = () => {
   }
 };
 
-const effectChange = (evt) => {
+const onEffectChange = (evt) => {
   resetStyleImg();
   addDefaultScaleImg();
 
@@ -149,10 +149,10 @@ const effectChange = (evt) => {
 
 const addEffectsSlider = () => {
   effectSlider.noUiSlider.on('update', onSliderChangeStyle);
-  effectList.addEventListener('change', effectChange);
+  effectList.addEventListener('change', onEffectChange);
   effectSlider.classList.add('hidden');
 };
 
-const removeEffectsSlider = () => effectList.removeEventListener('change', effectChange);
+const removeEffectsSlider = () => effectList.removeEventListener('change', onEffectChange);
 
-export {scalingDown, scalingUp, resetStyleImg, addDefaultScaleImg , addEffectsSlider, removeEffectsSlider};
+export {onButtonSmallerScalesClick , onButtonBiggerScalesClick, resetStyleImg, addDefaultScaleImg , addEffectsSlider, removeEffectsSlider};
