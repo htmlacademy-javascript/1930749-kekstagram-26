@@ -7,9 +7,9 @@ const imgFiltersButton = imgFilters.querySelectorAll('.img-filters__button');
 const MAX_SHOWN_RANDOM_PHOTO = 10;
 const RERENDER_DELAY = 500;
 
-const randomPhoto = (pictures) => pictures.slice().sort(() => Math.random() - 0.5).slice(0, MAX_SHOWN_RANDOM_PHOTO);
+const randomPhotos = (pictures) => pictures.slice().sort(() => Math.random() - 0.5).slice(0, MAX_SHOWN_RANDOM_PHOTO);
 
-const mostCommentedPhoto = (pictures) => pictures.slice().sort((picA, picB) => picB.comments.length - picA.comments.length);
+const mostCommentedPhotos = (pictures) => pictures.slice().sort((picA, picB) => picB.comments.length - picA.comments.length);
 
 const deletePrevPhoto = () => {
   const allPhoto = document.querySelectorAll('.picture');
@@ -34,11 +34,11 @@ const addFilters = (pictures, renderPictures) => {
       renderPictures(pictures);
     }
     if (evt.target.id === 'filter-random') {
-      newphotos = randomPhoto(pictures);
+      newphotos = randomPhotos(pictures);
       renderPictures(newphotos);
     }
     if (evt.target.id === 'filter-discussed') {
-      newphotos = mostCommentedPhoto(pictures);
+      newphotos = mostCommentedPhotos(pictures);
       renderPictures(newphotos);
     }
   }), RERENDER_DELAY);

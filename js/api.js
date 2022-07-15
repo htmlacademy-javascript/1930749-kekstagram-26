@@ -26,7 +26,7 @@ const sendData = async (onSuccess, onFail, body) => {
     onSuccess();
   }
   catch(err) {
-    onFail(err);
+    onFail(err.message);
   }
 };
 

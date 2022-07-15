@@ -1,11 +1,8 @@
 import { renderPictures }  from './miniature.js';
-import './bigpicture.js';
-import './effects.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
 import './form.js';
 import { addFilters } from './filters.js';
-
 
 const MAX_SHOW_PHOTO = 25;
 

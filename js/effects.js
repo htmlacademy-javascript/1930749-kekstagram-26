@@ -1,4 +1,5 @@
 import { imgUploadPreview } from './form.js';
+
 const valueScale = document.querySelector('.scale__control--value');
 const effectValue = document.querySelector('.effect-level__value');
 const effectSlider = document.querySelector('.effect-level__slider');
