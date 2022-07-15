@@ -33,4 +33,14 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { getRandomNumber, getRandomArrayElement, isEscapeKey, checkTextLength, showAlert };
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomNumber, getRandomArrayElement, isEscapeKey, checkTextLength, showAlert , debounce };
