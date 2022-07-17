@@ -27,9 +27,8 @@ function closeBigPicture () {
 
   document.removeEventListener('keydown', onBigPictureKeydown);
   commentsLoaderButton.removeEventListener('click', onLoaderButtonClick);
+  bigPictureCancel.removeEventListener('click', closeBigPicture);
 }
-
-bigPictureCancel.addEventListener('click', () => closeBigPicture());
 
 function openBigPicture() {
   bigPicture.classList.remove('hidden');
@@ -37,6 +36,7 @@ function openBigPicture() {
 
   document.addEventListener('keydown', onBigPictureKeydown);
   commentsLoaderButton.addEventListener('click', onLoaderButtonClick);
+  bigPictureCancel.addEventListener('click', closeBigPicture);
 }
 
 const setListComment = (comments) => {
