@@ -20,7 +20,7 @@ const rowIsEmpty = (hashtag) => hashtag.trim() === '';
 const getHashtagsArray = (hashtag) => hashtag.trim().split(' ');
 
 const validateHashTag = (hashtag) => rowIsEmpty(hashtag) || getHashtagsArray(hashtag).every((textHashtag) => RE.test(textHashtag));
-pristine.addValidator(textHashtags, validateHashTag, 'Хэш-тег должен состоять из букв и чисел.');
+pristine.addValidator(textHashtags, validateHashTag, 'Хэш-тег не может содержать спецсимволы, символы пунктуации. Хэш-теги должны быть разделены пробелами');
 
 const checkHashSign = (hashtag) =>  rowIsEmpty(hashtag) || getHashtagsArray(hashtag).every((textHashtag) => textHashtag.startsWith('#'));
 pristine.addValidator(textHashtags, checkHashSign, 'Хэш-тег должен начинаться с символа # (решётка).');

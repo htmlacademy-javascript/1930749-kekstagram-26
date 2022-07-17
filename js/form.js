@@ -22,6 +22,8 @@ const onImgUploadKeydown = (evt) => {
   }
 };
 
+const onInputKeydown = (evt) => evt.stopPropagation();
+
 function addKeydownListenerForm() {
   document.addEventListener('keydown', onImgUploadKeydown);
 }
@@ -33,27 +35,36 @@ function removeKeydownListenerForm() {
 function closeImgUpload() {
   body.classList.remove('modal-open');
   imgUploadOverlay.classList.add('hidden');
+
   imgUploadForm.reset();
   pristine.reset();
+
   resetStyleImg();
   removeEffectsSlider();
-
   removeKeydownListenerForm();
+
   buttonSmallerScale.removeEventListener('click', onButtonSmallerScalesClick);
   buttonBiggerScale.removeEventListener('click', onButtonBiggerScalesClick);
   imgUploadForm.removeEventListener('submit', onFormSubmit);
+  uploadCancel.removeEventListener('click', closeImgUpload);
+  textHashtags.removeEventListener('keydown', onInputKeydown);
+  textDescription.removeEventListener('keydown', onInputKeydown);
 }
 
 function openImgUpload() {
   body.classList.add('modal-open');
   imgUploadOverlay.classList.remove('hidden');
+
   addDefaultScaleImg();
   addEffectsSlider();
-
   addKeydownListenerForm();
+
   buttonSmallerScale.addEventListener('click', onButtonSmallerScalesClick);
   buttonBiggerScale.addEventListener('click', onButtonBiggerScalesClick);
   imgUploadForm.addEventListener('submit', onFormSubmit);
+  uploadCancel.addEventListener('click', closeImgUpload);
+  textHashtags.addEventListener('keydown', onInputKeydown);
+  textDescription.addEventListener('keydown', onInputKeydown);
 }
 
 function onUploadFileInputChange() {
@@ -70,18 +81,6 @@ function onUploadFileInputChange() {
 uploadFileInput.addEventListener('change', () => {
   openImgUpload();
   onUploadFileInputChange();
-});
-
-uploadCancel.addEventListener('click', () => {
-  closeImgUpload();
-});
-
-textHashtags.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
-
-textDescription.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
 });
 
 const blockSubmitButton = () => {
