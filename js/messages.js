@@ -1,11 +1,14 @@
 import { isEscapeKey } from './util.js';
+import { addKeydownListenerForm, removeKeydownListenerForm } from './form.js';
 
 const showMessage = (name) => {
   const templateMessage = document.querySelector(`#${name}`).content;
   const sectionMessage = templateMessage.querySelector(`.${name}`);
   const message = sectionMessage.cloneNode(true);
+  message.style.zIndex = '10';
 
   document.body.append(message);
+  removeKeydownListenerForm();
 
   const innerMessage = message.querySelector(`.${name}__inner`);
   const buttonMessage = message.querySelector(`.${name}__button`);
@@ -14,7 +17,7 @@ const showMessage = (name) => {
   document.addEventListener('keydown', onMessageKeydown);
   document.addEventListener('click', onMessageClick);
 
-  function onButtonMessageClick() {
+  function onButtonMessageClick () {
     removeMessage();
   }
 
@@ -22,16 +25,19 @@ const showMessage = (name) => {
     message.remove();
     document.removeEventListener('keydown', onMessageKeydown);
     document.removeEventListener('click', onMessageClick);
+    if (name === 'error') {
+      addKeydownListenerForm();
+    }
   }
 
-  function onMessageKeydown  (evt) {
+  function onMessageKeydown (evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       removeMessage();
     }
   }
 
-  function onMessageClick  (evt) {
+  function onMessageClick (evt) {
     const click = evt.composedPath().includes(innerMessage);
     if (!click) {
       removeMessage();

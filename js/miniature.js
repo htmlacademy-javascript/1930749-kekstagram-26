@@ -24,4 +24,4 @@ const renderPictures = (photos) => {
   pictures.appendChild(fragmentPicture);
 };
 
-export { renderPictures };
+export { renderPictures , pictures};

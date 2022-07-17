@@ -5,8 +5,11 @@ import { onButtonSmallerScalesClick, onButtonBiggerScalesClick, resetStyleImg , 
 import { imgUploadForm, textHashtags, textDescription, pristine} from './validation.js';
 import { sendData } from './api.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 const uploadFileInput = imgUploadForm.querySelector('#upload-file');
 const imgUploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
+const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const uploadCancel = imgUploadForm.querySelector('#upload-cancel');
 const buttonSmallerScale = imgUploadForm.querySelector('.scale__control--smaller');
 const buttonBiggerScale = imgUploadForm.querySelector('.scale__control--bigger');
@@ -19,6 +22,14 @@ const onImgUploadKeydown = (evt) => {
   }
 };
 
+function addKeydownListenerForm() {
+  document.addEventListener('keydown', onImgUploadKeydown);
+}
+
+function removeKeydownListenerForm() {
+  document.removeEventListener('keydown', onImgUploadKeydown);
+}
+
 function closeImgUpload() {
   body.classList.remove('modal-open');
   imgUploadOverlay.classList.add('hidden');
@@ -27,7 +38,7 @@ function closeImgUpload() {
   resetStyleImg();
   removeEffectsSlider();
 
-  document.removeEventListener('keydown', onImgUploadKeydown);
+  removeKeydownListenerForm();
   buttonSmallerScale.removeEventListener('click', onButtonSmallerScalesClick);
   buttonBiggerScale.removeEventListener('click', onButtonBiggerScalesClick);
   imgUploadForm.removeEventListener('submit', onFormSubmit);
@@ -39,14 +50,26 @@ function openImgUpload() {
   addDefaultScaleImg();
   addEffectsSlider();
 
-  document.addEventListener('keydown', onImgUploadKeydown);
+  addKeydownListenerForm();
   buttonSmallerScale.addEventListener('click', onButtonSmallerScalesClick);
   buttonBiggerScale.addEventListener('click', onButtonBiggerScalesClick);
   imgUploadForm.addEventListener('submit', onFormSubmit);
 }
 
+function onUploadFileInputChange() {
+  const file = uploadFileInput.files[0];
+  const filename = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((type) => filename.endsWith(type));
+
+  if (matches) {
+    imgUploadPreview.src = URL.createObjectURL(file);
+  }
+}
+
 uploadFileInput.addEventListener('change', () => {
   openImgUpload();
+  onUploadFileInputChange();
 });
 
 uploadCancel.addEventListener('click', () => {
@@ -79,15 +102,16 @@ function onFormSubmit (evt) {
     sendData(
       () => {
         showMessage('success');
+        unblockSubmitButton();
+        closeImgUpload();
       },
       () => {
         showMessage('error');
-      },
-      () => {
-        closeImgUpload();
         unblockSubmitButton();
       },
       new FormData(evt.target),
     );
   }
 }
+
+export { addKeydownListenerForm, removeKeydownListenerForm , imgUploadPreview};
