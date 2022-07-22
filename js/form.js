@@ -16,13 +16,15 @@ const buttonBiggerScale = imgUploadForm.querySelector('.scale__control--bigger')
 const buttonImgUploadSubmit = imgUploadForm.querySelector('.img-upload__submit');
 
 const onImgUploadKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && checkInputFocus()) {
     evt.preventDefault();
     closeImgUpload();
   }
 };
 
-const onInputKeydown = (evt) => evt.stopPropagation();
+function checkInputFocus() {
+  return document.activeElement !== textHashtags && document.activeElement !== textDescription;
+}
 
 function addKeydownListenerForm() {
   document.addEventListener('keydown', onImgUploadKeydown);
@@ -47,8 +49,6 @@ function closeImgUpload() {
   buttonBiggerScale.removeEventListener('click', onButtonBiggerScalesClick);
   imgUploadForm.removeEventListener('submit', onFormSubmit);
   uploadCancel.removeEventListener('click', closeImgUpload);
-  textHashtags.removeEventListener('keydown', onInputKeydown);
-  textDescription.removeEventListener('keydown', onInputKeydown);
 }
 
 function openImgUpload() {
@@ -63,8 +63,6 @@ function openImgUpload() {
   buttonBiggerScale.addEventListener('click', onButtonBiggerScalesClick);
   imgUploadForm.addEventListener('submit', onFormSubmit);
   uploadCancel.addEventListener('click', closeImgUpload);
-  textHashtags.addEventListener('keydown', onInputKeydown);
-  textDescription.addEventListener('keydown', onInputKeydown);
 }
 
 function onUploadFileInputChange() {
