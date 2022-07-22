@@ -16,14 +16,14 @@ const buttonBiggerScale = imgUploadForm.querySelector('.scale__control--bigger')
 const buttonImgUploadSubmit = imgUploadForm.querySelector('.img-upload__submit');
 
 const onImgUploadKeydown = (evt) => {
-  if (isEscapeKey(evt) && checkInputFocus()) {
+  if (isEscapeKey(evt) && !checkInputFocus()) {
     evt.preventDefault();
     closeImgUpload();
   }
 };
 
 function checkInputFocus() {
-  return document.activeElement !== textHashtags && document.activeElement !== textDescription;
+  return document.activeElement === textHashtags || document.activeElement === textDescription;
 }
 
 function addKeydownListenerForm() {
