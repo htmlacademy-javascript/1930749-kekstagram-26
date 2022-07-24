@@ -20,7 +20,7 @@ const addDefaultScaleImg = () => {
   imgUploadPreview.style.transform = `scale(${DEFAULT_SCALE / 100})`;
 };
 
-const onButtonSmallerScalesClick = () => {
+const clickButtonSmallerScales = () => {
   let countScale = parseInt(valueScale.value, 10);
   if (countScale > MIN_SCALE) {
     countScale -= STEP_SCALE;
@@ -29,7 +29,7 @@ const onButtonSmallerScalesClick = () => {
   }
 };
 
-const onButtonBiggerScalesClick = () => {
+const clickButtonBiggerScales = () => {
   let countScale = parseInt(valueScale.value, 10);
   if (countScale < MAX_SCALE) {
     countScale += STEP_SCALE;
@@ -56,7 +56,7 @@ noUiSlider.create(effectSlider, {
   },
 });
 
-const onSliderChangeStyle = () => {
+const changeImgStyle = () => {
   effectValue.value = effectSlider.noUiSlider.get();
   if (imgUploadPreview.classList.contains('effects__preview--chrome')) {
     imgUploadPreview.style.filter = `grayscale(${effectValue.value})`;
@@ -75,7 +75,7 @@ const onSliderChangeStyle = () => {
   }
 };
 
-const onEffectChange = (evt) => {
+const changeEffectImg = (evt) => {
   resetStyleImg();
   addDefaultScaleImg();
 
@@ -149,11 +149,11 @@ const onEffectChange = (evt) => {
 };
 
 const addEffectsSlider = () => {
-  effectSlider.noUiSlider.on('update', onSliderChangeStyle);
-  effectList.addEventListener('change', onEffectChange);
+  effectSlider.noUiSlider.on('update',  changeImgStyle);
+  effectList.addEventListener('change', changeEffectImg);
   effectSlider.classList.add('hidden');
 };
 
-const removeEffectsSlider = () => effectList.removeEventListener('change', onEffectChange);
+const removeEffectsSlider = () => effectList.removeEventListener('change', changeEffectImg);
 
-export {onButtonSmallerScalesClick , onButtonBiggerScalesClick, resetStyleImg, addDefaultScaleImg , addEffectsSlider, removeEffectsSlider};
+export {clickButtonSmallerScales , clickButtonBiggerScales, resetStyleImg, addDefaultScaleImg , addEffectsSlider, removeEffectsSlider};

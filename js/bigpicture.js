@@ -14,32 +14,32 @@ const commentsLoaderButton = bigPicture.querySelector('.social__comments-loader'
 
 const MAX_SHOWN_COMMENTS = 5;
 
-const onBigPictureKeydown = (evt) => {
+function pressKeydownBigPicture (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
-};
+}
 
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', onBigPictureKeydown);
+  document.removeEventListener('keydown', pressKeydownBigPicture);
   commentsLoaderButton.removeEventListener('click', onLoaderButtonClick);
   bigPictureCancel.removeEventListener('click', closeBigPicture);
 }
 
-function openBigPicture() {
+function openBigPicture () {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
 
-  document.addEventListener('keydown', onBigPictureKeydown);
+  document.addEventListener('keydown', pressKeydownBigPicture);
   commentsLoaderButton.addEventListener('click', onLoaderButtonClick);
   bigPictureCancel.addEventListener('click', closeBigPicture);
 }
 
-const setListComment = (comments) => {
+function setListComment (comments) {
   const fragmentComment = document.createDocumentFragment();
   socialComments.innerHTML = '';
 
@@ -60,7 +60,7 @@ const setListComment = (comments) => {
   }
   socialComments.appendChild(fragmentComment);
   visibleComments.textContent = `${getVisibleCommentsCount()}`;
-};
+}
 
 function onLoaderButtonClick() {
   let opened = 0;
