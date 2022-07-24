@@ -1,7 +1,7 @@
 import { body } from './bigpicture.js';
 import { isEscapeKey} from './util.js';
 import { showMessage } from './messages.js';
-import { onButtonSmallerScalesClick, onButtonBiggerScalesClick, resetStyleImg , addDefaultScaleImg , addEffectsSlider, removeEffectsSlider} from './effects.js';
+import { clickButtonSmallerScales, clickButtonBiggerScales, resetStyleImg , addDefaultScaleImg , addEffectsSlider, removeEffectsSlider} from './effects.js';
 import { imgUploadForm, textHashtags, textDescription, pristine} from './validation.js';
 import { sendData } from './api.js';
 
@@ -15,7 +15,7 @@ const buttonSmallerScale = imgUploadForm.querySelector('.scale__control--smaller
 const buttonBiggerScale = imgUploadForm.querySelector('.scale__control--bigger');
 const buttonImgUploadSubmit = imgUploadForm.querySelector('.img-upload__submit');
 
-const onImgUploadKeydown = (evt) => {
+const pressKeydownImgUpload = (evt) => {
   if (isEscapeKey(evt) && !checkInputFocus()) {
     evt.preventDefault();
     closeImgUpload();
@@ -27,11 +27,11 @@ function checkInputFocus() {
 }
 
 function addKeydownListenerForm() {
-  document.addEventListener('keydown', onImgUploadKeydown);
+  document.addEventListener('keydown',  pressKeydownImgUpload);
 }
 
 function removeKeydownListenerForm() {
-  document.removeEventListener('keydown', onImgUploadKeydown);
+  document.removeEventListener('keydown',  pressKeydownImgUpload);
 }
 
 function closeImgUpload() {
@@ -45,8 +45,8 @@ function closeImgUpload() {
   removeEffectsSlider();
   removeKeydownListenerForm();
 
-  buttonSmallerScale.removeEventListener('click', onButtonSmallerScalesClick);
-  buttonBiggerScale.removeEventListener('click', onButtonBiggerScalesClick);
+  buttonSmallerScale.removeEventListener('click', clickButtonSmallerScales);
+  buttonBiggerScale.removeEventListener('click', clickButtonBiggerScales);
   imgUploadForm.removeEventListener('submit', onFormSubmit);
   uploadCancel.removeEventListener('click', closeImgUpload);
 }
@@ -59,8 +59,8 @@ function openImgUpload() {
   addEffectsSlider();
   addKeydownListenerForm();
 
-  buttonSmallerScale.addEventListener('click', onButtonSmallerScalesClick);
-  buttonBiggerScale.addEventListener('click', onButtonBiggerScalesClick);
+  buttonSmallerScale.addEventListener('click',  clickButtonSmallerScales);
+  buttonBiggerScale.addEventListener('click', clickButtonBiggerScales);
   imgUploadForm.addEventListener('submit', onFormSubmit);
   uploadCancel.addEventListener('click', closeImgUpload);
 }
@@ -86,7 +86,7 @@ const blockSubmitButton = () => {
   buttonImgUploadSubmit.textContent = 'Отправляю...';
 };
 
-const unblockSubmitButton = () => {
+const activateSubmitButton = () => {
   buttonImgUploadSubmit.disabled = false;
   buttonImgUploadSubmit.textContent = 'Опубликовать';
 };
@@ -99,12 +99,12 @@ function onFormSubmit (evt) {
     sendData(
       () => {
         showMessage('success');
-        unblockSubmitButton();
+        activateSubmitButton();
         closeImgUpload();
       },
       () => {
         showMessage('error');
-        unblockSubmitButton();
+        activateSubmitButton();
       },
       new FormData(evt.target),
     );
