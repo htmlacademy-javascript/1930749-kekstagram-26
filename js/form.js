@@ -15,12 +15,12 @@ const buttonSmallerScale = imgUploadForm.querySelector('.scale__control--smaller
 const buttonBiggerScale = imgUploadForm.querySelector('.scale__control--bigger');
 const buttonImgUploadSubmit = imgUploadForm.querySelector('.img-upload__submit');
 
-const pressKeydownImgUpload = (evt) => {
+function pressKeydownImgUpload (evt) {
   if (isEscapeKey(evt) && !checkInputFocus()) {
     evt.preventDefault();
     closeImgUpload();
   }
-};
+}
 
 function checkInputFocus() {
   return document.activeElement === textHashtags || document.activeElement === textDescription;
@@ -81,15 +81,15 @@ uploadFileInput.addEventListener('change', () => {
   onUploadFileInputChange();
 });
 
-const blockSubmitButton = () => {
+function blockSubmitButton () {
   buttonImgUploadSubmit.disabled = true;
   buttonImgUploadSubmit.textContent = 'Отправляю...';
-};
+}
 
-const activateSubmitButton = () => {
+function activateSubmitButton () {
   buttonImgUploadSubmit.disabled = false;
   buttonImgUploadSubmit.textContent = 'Опубликовать';
-};
+}
 
 function onFormSubmit (evt) {
   evt.preventDefault();

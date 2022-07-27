@@ -15,23 +15,35 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextClass: 'text__element--error',
 });
 
-const rowIsEmpty = (hashtag) => hashtag.trim() === '';
+function rowIsEmpty (hashtag) {
+  return hashtag.trim() === '';
+}
 
-const getHashtagsArray = (hashtag) => hashtag.trim().split(' ');
+function getHashtagsArray (hashtag) {
+  return hashtag.trim().split(' ');
+}
 
-const validateHashTag = (hashtag) => rowIsEmpty(hashtag) || getHashtagsArray(hashtag).every((textHashtag) => RE.test(textHashtag));
+function validateHashTag (hashtag) {
+  return rowIsEmpty(hashtag) || getHashtagsArray(hashtag).every((textHashtag) => RE.test(textHashtag));
+}
 pristine.addValidator(textHashtags, validateHashTag, 'Хэш-тег не может содержать спецсимволы, символы пунктуации. Хэш-теги должны быть разделены пробелами');
 
-const checkHashSign = (hashtag) =>  rowIsEmpty(hashtag) || getHashtagsArray(hashtag).every((textHashtag) => textHashtag.startsWith('#'));
+function checkHashSign(hashtag) {
+  return rowIsEmpty(hashtag) || getHashtagsArray(hashtag).every((textHashtag) => textHashtag.startsWith('#'));
+}
 pristine.addValidator(textHashtags, checkHashSign, 'Хэш-тег должен начинаться с символа # (решётка).');
 
-const checkHashLength = (hashtag) => getHashtagsArray(hashtag).every((textHashtag) => textHashtag.length <= MAX_LENGTH_HASHTAG);
+function checkHashLength(hashtag) {
+  return getHashtagsArray(hashtag).every((textHashtag) => textHashtag.length <= MAX_LENGTH_HASHTAG);
+}
 pristine.addValidator(textHashtags, checkHashLength, `Максимальная длина одного хэш-тега ${MAX_LENGTH_HASHTAG} символов.`);
 
-const checkMaxHashtags = (hashtag) => getHashtagsArray(hashtag).length <= MAX_HASHTAGS;
+function checkMaxHashtags(hashtag) {
+  return getHashtagsArray(hashtag).length <= MAX_HASHTAGS;
+}
 pristine.addValidator(textHashtags, checkMaxHashtags, `Нельзя указать больше ${MAX_HASHTAGS} хэш-тегов.`);
 
-const checkRepeatHashtags = (hashtag) => {
+function checkRepeatHashtags (hashtag) {
   const match = {};
   const getLowerHashtags = getHashtagsArray(hashtag.toLowerCase());
   return !getLowerHashtags.some((hash) => {
@@ -41,11 +53,13 @@ const checkRepeatHashtags = (hashtag) => {
     match[hash] = true;
     return false;
   });
-};
+}
 
 pristine.addValidator(textHashtags, checkRepeatHashtags, 'Такой хэштег уже существует.');
 
-const checkCommentLength = (comment) => checkTextLength(comment, MAX_LENGTH_COMMENT);
+function checkCommentLength(comment) {
+  return checkTextLength(comment, MAX_LENGTH_COMMENT);
+}
 
 pristine.addValidator(textDescription, checkCommentLength, `Длина комментария не может составлять больше ${MAX_LENGTH_COMMENT} символов`);
 

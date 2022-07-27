@@ -1,7 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { addKeydownListenerForm, removeKeydownListenerForm } from './form.js';
 
-const showMessage = (name) => {
+function showMessage (name) {
   const templateMessage = document.querySelector(`#${name}`).content;
   const sectionMessage = templateMessage.querySelector(`.${name}`);
   const message = sectionMessage.cloneNode(true);
@@ -43,6 +43,6 @@ const showMessage = (name) => {
       removeMessage();
     }
   }
-};
+}
 
 export { showMessage };

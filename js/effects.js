@@ -10,33 +10,33 @@ const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const DEFAULT_SCALE = 100;
 
-const resetStyleImg = () => {
+function resetStyleImg () {
   imgUploadPreview.className = '';
   imgUploadPreview.style = 'none';
-};
+}
 
-const addDefaultScaleImg = () => {
+function addDefaultScaleImg () {
   valueScale.value = `${DEFAULT_SCALE}%`;
   imgUploadPreview.style.transform = `scale(${DEFAULT_SCALE / 100})`;
-};
+}
 
-const clickButtonSmallerScales = () => {
+function clickButtonSmallerScales () {
   let countScale = parseInt(valueScale.value, 10);
   if (countScale > MIN_SCALE) {
     countScale -= STEP_SCALE;
     valueScale.value = `${countScale}%`;
     imgUploadPreview.style.transform = `scale(${countScale/100})`;
   }
-};
+}
 
-const clickButtonBiggerScales = () => {
+function clickButtonBiggerScales () {
   let countScale = parseInt(valueScale.value, 10);
   if (countScale < MAX_SCALE) {
     countScale += STEP_SCALE;
     valueScale.value = `${countScale}%`;
     imgUploadPreview.style.transform = `scale(${countScale / 100})`;
   }
-};
+}
 
 noUiSlider.create(effectSlider, {
   range: {
@@ -56,7 +56,7 @@ noUiSlider.create(effectSlider, {
   },
 });
 
-const changeImgStyle = () => {
+function changeImgStyle () {
   effectValue.value = effectSlider.noUiSlider.get();
   if (imgUploadPreview.classList.contains('effects__preview--chrome')) {
     imgUploadPreview.style.filter = `grayscale(${effectValue.value})`;
@@ -73,9 +73,9 @@ const changeImgStyle = () => {
   if (imgUploadPreview.classList.contains('effects__preview--heat')) {
     imgUploadPreview.style.filter = `brightness(${effectValue.value})`;
   }
-};
+}
 
-const changeEffectImg = (evt) => {
+function changeEffectImg (evt) {
   resetStyleImg();
   addDefaultScaleImg();
 
@@ -146,14 +146,16 @@ const changeEffectImg = (evt) => {
       step: 0.1,
     });
   }
-};
+}
 
-const addEffectsSlider = () => {
+function addEffectsSlider () {
   effectSlider.noUiSlider.on('update',  changeImgStyle);
   effectList.addEventListener('change', changeEffectImg);
   effectSlider.classList.add('hidden');
-};
+}
 
-const removeEffectsSlider = () => effectList.removeEventListener('change', changeEffectImg);
+function removeEffectsSlider () {
+  effectList.removeEventListener('change', changeEffectImg);
+}
 
 export {clickButtonSmallerScales , clickButtonBiggerScales, resetStyleImg, addDefaultScaleImg , addEffectsSlider, removeEffectsSlider};

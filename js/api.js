@@ -1,4 +1,4 @@
-const getData = async (onSuccess, onError) => {
+async function getData (onSuccess, onError) {
   try {
     const response = await fetch('https://26.javascript.pages.academy/kekstagram/data');
     if (!response.ok) {
@@ -9,10 +9,10 @@ const getData = async (onSuccess, onError) => {
   }
   catch(err){
     onError(err.message);
-  }};
+  }}
 
 
-const sendData = async (onSuccess, onFail, body) => {
+async function sendData (onSuccess, onFail, body) {
   try {
     const response = await fetch('https://26.javascript.pages.academy/kekstagram',
       {
@@ -28,6 +28,6 @@ const sendData = async (onSuccess, onFail, body) => {
   catch(err) {
     onFail(err.message);
   }
-};
+}
 
 export {getData, sendData};
