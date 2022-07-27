@@ -7,21 +7,25 @@ const imgFiltersButton = imgFilters.querySelectorAll('.img-filters__button');
 const MAX_SHOWN_RANDOM_PHOTO = 10;
 const RERENDER_DELAY = 500;
 
-const shufflePhotos = (pictures) => pictures.slice().sort(() => Math.random() - 0.5).slice(0, MAX_SHOWN_RANDOM_PHOTO);
+function shufflePhotos (pictures) {
+  return pictures.slice().sort(() => Math.random() - 0.5).slice(0, MAX_SHOWN_RANDOM_PHOTO);
+}
 
-const getMostCommentedPhotos = (pictures) => pictures.slice().sort((picA, picB) => picB.comments.length - picA.comments.length);
+function getMostCommentedPhotos(pictures) {
+  return pictures.slice().sort((picA, picB) => picB.comments.length - picA.comments.length);
+}
 
-const removePrevPhoto = () => {
+function removePrevPhoto () {
   const allPhoto = document.querySelectorAll('.picture');
   allPhoto.forEach((photo) => photo.remove());
-};
+}
 
-const clickButtonFilter = (evt) => {
+function clickButtonFilter (evt) {
   imgFiltersButton.forEach((button) => { button.classList.remove('img-filters__button--active'); });
   evt.target.classList.add('img-filters__button--active');
-};
+}
 
-const addFilters = (pictures, renderPictures) => {
+function addFilters (pictures, renderPictures) {
   imgFilters.classList.remove('img-filters--inactive');
 
   let newphotos;
@@ -42,6 +46,6 @@ const addFilters = (pictures, renderPictures) => {
       renderPictures(newphotos);
     }
   }), RERENDER_DELAY);
-};
+}
 
 export { addFilters };

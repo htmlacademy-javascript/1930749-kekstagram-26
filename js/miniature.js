@@ -4,7 +4,7 @@ const pictures = document.querySelector('.pictures');
 const template = document.querySelector('#picture').content;
 const templatePicture = template.querySelector('.picture');
 
-const renderPictures = (photos) => {
+function renderPictures (photos) {
   const fragmentPicture = document.createDocumentFragment();
 
   photos.forEach(({ url, likes, comments, description }) => {
@@ -22,6 +22,6 @@ const renderPictures = (photos) => {
   });
 
   pictures.appendChild(fragmentPicture);
-};
+}
 
 export { renderPictures };

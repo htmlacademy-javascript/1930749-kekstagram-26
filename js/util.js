@@ -1,10 +1,14 @@
 const ALERT_SHOW_TIME = 5000;
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+function isEscapeKey (evt) {
+  return evt.key === 'Escape';
+}
 
-const checkTextLength = (text, maxLength) => text.length <= maxLength;
+function checkTextLength (text, maxLength) {
+  return text.length <= maxLength;
+}
 
-const showAlert = (message) => {
+function showAlert (message) {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '10';
   alertContainer.style.position = 'absolute';
@@ -23,7 +27,7 @@ const showAlert = (message) => {
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
-};
+}
 
 function debounce (callback, timeoutDelay = 500) {
   let timeoutId;
